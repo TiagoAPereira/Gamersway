@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>gamersway</title>
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1>gamersway</h1>
+            <p class="tag">Best games of the week &amp; year — curated picks</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="controls">
+            <div class="left-controls">
+                <div class="btn-group">
+                    <button id="btn-week" class="active">Best of Week</button>
+                    <button id="btn-year">Best of Year</button>
+                </div>
+                <input id="search" placeholder="Search games" aria-label="Search games" />
+            </div>
+
+            <div class="filters">
+                <label>
+                    Platform
+                    <select id="platform">
+                        <option value="all">All</option>
+                    </select>
+                </label>
+
+                <label>
+                    Min Rating
+                    <div class="range-wrap"><input id="min-rating" type="range" min="0" max="10" step="0.1" value="0" /><span id="rating-value">0</span></div>
+                </label>
+
+                <label>
+                    Sort
+                    <select id="sort">
+                        <option value="rating-desc">Rating (high → low)</option>
+                        <option value="rating-asc">Rating (low → high)</option>
+                        <option value="title-asc">Title (A → Z)</option>
+                    </select>
+                </label>
+
+                <button id="clear-filters" class="clear">Clear</button>
+            </div>
+        </section>
+
+        <section id="games" class="games-grid" aria-live="polite">
+            <!-- Game cards rendered by js/main.js -->
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">&copy; gamersway — curated picks</div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
