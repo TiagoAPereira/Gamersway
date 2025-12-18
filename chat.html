@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Gamersway — Chat</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <style>body{background:linear-gradient(180deg,#071019 0%,#0b1220 100%);color:#e6eef6}</style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1>Gamersway</h1>
+            <nav class="site-nav">
+                <a href="index.html">Voltar à página inicial</a>
+            </nav>
+            <p class="tag">Community chat</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="chat-app" aria-live="polite">
+            <div class="chat-header">
+                <label>
+                    Nome
+                    <input id="username" placeholder="Your name" />
+                </label>
+                <label style="margin-left:12px">
+                    Sala
+                    <input id="room" value="global" />
+                </label>
+            </div>
+
+            <div class="chat-main">
+                <div class="chat-list" id="messages" aria-live="polite" aria-atomic="false"></div>
+
+                <aside class="chat-sidebar">
+                    <h4 style="margin:0 0 8px 0">Active</h4>
+                    <ul id="peers"></ul>
+                </aside>
+            </div>
+
+            <div class="chat-controls">
+                <input id="message" class="chat-input" placeholder="Escreva uma mensagem e pressione Enter" aria-label="Message" />
+                <button id="send" class="chat-send">Enviar</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">&copy; Gamersway — curated picks</div>
+    </footer>
+
+    <script src="js/chat.js"></script>
+</body>
+</html>
