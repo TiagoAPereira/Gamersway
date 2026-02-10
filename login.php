@@ -6,7 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h2> Resultados encontrados: </h2>
 
     <?php
     $userlogin=$_POST['login'];
@@ -34,23 +33,26 @@
     // Ligação à base de dados Loja
     mysqli_select_db($liga, 'bd_gamersway');
 
-    $procura = "select * from tbl_users where username like '%$userlogin%'";
+    $procura = "select * from tbl_users where BINARY username = '$userlogin'";
     $resultado = mysqli_query($liga, $procura);
     $nregistos = mysqli_num_rows($resultado);
 
-    echo "Foram encontrados $nregistos registos.";
     ?>
     
-
     <?php
-    for ($i = 0; $i < $nregistos; $i++) {
+    if($nregistos == 0){
+        echo "<p> Nome de utilizador inválido: $userlogin!</p>";
+        echo "<a href='login.html'>Voltar para a página de login</a>";
+        exit;
+    }
+    else{
         $registo = mysqli_fetch_assoc($resultado);
-        echo "<p>" . $registo['username'] . "</p>";
-        echo "<p>" . $registo['password'] . "</p>";
         if($userpassword == $registo['password']){
             echo "<p>A password está correta!</p>";
+            echo "<a href='index.html'>Voltar para a página inicial</a>";
         } else {
             echo "<p>Password incorreta!</p>";
+            echo "<a href='login.html'>Voltar para a página de login</a>";
         }
     }
     ?>
