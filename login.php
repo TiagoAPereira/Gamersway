@@ -30,7 +30,7 @@
         exit;
     }
 
-    // Ligação à base de dados Loja
+    // Ligação à base de dados
     mysqli_select_db($liga, 'bd_gamersway');
 
     $procura = "select * from tbl_users where BINARY username = '$userlogin'";
