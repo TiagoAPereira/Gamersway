@@ -1,3 +1,8 @@
+<?php
+// Start the session
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,14 +12,32 @@
     <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
+    <?php
+// Set session variables
+if(isset($_SESSION["user_logged_in"])){
+    if($_SESSION["user_logged_in"] == "true"){
+        echo "user logged in";
+    } else {
+        echo "user not logged in";
+    }
+} else {
+    $_SESSION["user_logged_in"] = "false";
+    echo "user not logged in";
+}
+?>
     <header class="site-header">
         <div class="container">
             <h1>Gamersway</h1>
             <nav class="site-nav">  
-                <a href="index.html">Home</a>
-                <a href="chat.html">Chat</a>
-                <a href="about.html">About</a>
-                <a href="login.html">Login</a>
+                <a href="index.php">Home</a>
+                <?php if(isset($_SESSION["user_logged_in"])){
+                    if($_SESSION["user_logged_in"] == "true"){
+                        echo '<a href="chat.php">Chat</a>';
+                    } 
+                } 
+                 ?>
+                <a href="about.php">About</a>
+                <a href="login.php">Login</a>
             </nav>
             <p class="tag">Best games of the week &amp; year — curated picks</p>
         </div>
