@@ -1,3 +1,6 @@
+<?php
+include 'config.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +15,7 @@
         <div class="container">
             <h1>Gamersway</h1>
             <nav class="site-nav">
-                <a href="index.php">Home</a>
-                <a href="chat.php">Chat</a>
-                <a href="about.php">About</a>
-                <a href="login.php">Login</a>
-            </nav>
+                <?php nav_bar(); ?>
             <p class="tag">Community chat</p>
         </div>
     </header>

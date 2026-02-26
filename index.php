@@ -1,6 +1,5 @@
 <?php
-// Start the session
-session_start();
+include 'config.php';
 ?>
 
 <!DOCTYPE html>
@@ -28,17 +27,8 @@ if(isset($_SESSION["user_logged_in"])){
     <header class="site-header">
         <div class="container">
             <h1>Gamersway</h1>
-            <nav class="site-nav">  
-                <a href="index.php">Home</a>
-                <?php if(isset($_SESSION["user_logged_in"])){
-                    if($_SESSION["user_logged_in"] == "true"){
-                        echo '<a href="chat.php">Chat</a>';
-                    } 
-                } 
-                 ?>
-                <a href="about.php">About</a>
-                <a href="login.php">Login</a>
-            </nav>
+            <nav class="site-nav">
+                <?php nav_bar(); ?>
             <p class="tag">Best games of the week &amp; year — curated picks</p>
         </div>
     </header>

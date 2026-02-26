@@ -1,3 +1,6 @@
+<?php
+include 'config.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,43 +14,39 @@
         <div class="container">
             <h1>Gamersway</h1>
             <nav class="site-nav">
-                <a href="index.php">Home</a>
-                <a href="chat.php">Chat</a>
-                <a href="about.php">About</a>
-                <a href="login.php">Login</a>
-            </nav>
-            <p class="tag">Best games of the week &amp; year — curated picks</p>
+                <?php nav_bar(); ?>
+            <p class="tag">Melhores jogos da semana e do ano — seleções curadas</p>
         </div>
     </header>
 
     <main class="container">
         <section class="about-section">
-            <h2>About Gamersway</h2>
+            <h2>Sobre o Gamersway</h2>
             <div class="about-content">
-                <p>Welcome to <strong>Gamersway</strong>, a passion project built by a single developer who shares a love for gaming and wants to create a space for gamers like you.</p>
+                <p>Bem-vindo ao website <strong>Gamersway</strong>, um projeto criado por um único desenvolvedor que compartilha o amor pelos jogos e quer criar um espaço para jogadores como você.</p>
                 
-                <h3>Our Mission</h3>
-                <p>Gamersway exists to help gamers discover the best games of the week and year. We curate picks based on quality, innovation, and community feedback — all in one easy-to-navigate platform.</p>
+                <h3>Missão</h3>
+                <p>Gamersway existe para ajudar jogadores a descobrir os melhores jogos da semana e do ano. Selecionamos recomendações com base na qualidade, inovação e no feedback da comunidade — tudo em uma plataforma fácil de navegar.</p>
                 
-                <h3>Creator</h3>
-                <p><strong>Tiago Pereira</strong> is the sole developer and curator behind Gamersway. With a passion for gaming and web development, Tiago built this website to combine both interests and provide a valuable resource for the gaming community.</p>
+                <h3>Criador</h3>
+                <p><strong>Tiago Pereira</strong> é o único desenvolvedor por trás deste website. Com paixão por jogos e desenvolvimento web, Tiago construiu este site para unir ambas as paixões e oferecer um recurso valioso para a comunidade gamer.</p>
                 
-                <h3>Why Gamersway?</h3>
+                <h3>Por que Gamersway?</h3>
                 <ul>
-                    <li><strong>Curated Selections:</strong> Hand-picked games that stand out each week and throughout the year</li>
-                    <li><strong>Community Focused:</strong> A chat feature to connect with other gamers and share recommendations</li>
-                    <li><strong>Simple & Fast:</strong> A clean, responsive design that works on any device</li>
-                    <li><strong>Passion Driven:</strong> Built by someone who genuinely loves gaming</li>
+                    <li><strong>Melhores jogos:</strong> Jogos que se destacam a cada semana e ao longo do ano</li>
+                    <li><strong>Focado na Comunidade:</strong> Um recurso de chat para se conectar com outros jogadores e compartilhar recomendações</li>
+                    <li><strong>Simples & Rápido:</strong> Design limpo e responsivo que funciona em qualquer dispositivo</li>
+                    <li><strong>Movido pela Paixão:</strong> Construído por alguém que realmente ama jogos</li>
                 </ul>
                 
-                <h3>Get Involved</h3>
-                <p>Have feedback or want to chat about games? Head over to our <a href="chat.html">chat page</a> to connect with the community!</p>
+                <h3>Participe</h3>
+                <p>Tem feedback ou quer conversar sobre jogos? Vá para nossa <a href="chat.html">página de chat</a> para se conectar com a comunidade!</p>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <div class="container">&copy; Gamersway — curated picks</div>
+        <div class="container">&copy; Gamersway</div>
     </footer>
 
     <style>
