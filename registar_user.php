@@ -1,6 +1,4 @@
 <?php
-// Start the session
-session_start();
 include 'config.php';
 ?>
 
@@ -29,7 +27,7 @@ include 'config.php';
     echo "<p> Nome do user desejado: $username </p>";
     echo "<p> Palavra-passe desejada: $userpassword </p>";
 
-    liga();
+    $liga = liga(); // Call the function and store the returned connection
 
 
     $procura = "select * from tbl_users where BINARY username = '$username'";
