@@ -16,7 +16,7 @@ include 'config.php';
     
 
     <?php
-    $userlogin=$_POST['login'];
+    $username=$_POST['username'];
     $userpassword=$_POST['password'];
     if(!$userpassword){
         echo "Volte atrás e escreva uma palavra-passe!";
@@ -26,31 +26,24 @@ include 'config.php';
         echo "Volte atrás e escreva um nome de utilizador!";
         exit;
     }
-    echo "<p> Nome do user: $userlogin </p>";
-    echo "<p> Palavra-passe do user: $userpassword </p>";
+    echo "<p> Nome do user desejado: $username </p>";
+    echo "<p> Palavra-passe desejada: $userpassword </p>";
 
     liga();
 
 
-    $procura = "select * from tbl_users where BINARY username = '$userlogin'";
+    $procura = "select * from tbl_users where BINARY username = '$username'";
     $resultado = mysqli_query($liga, $procura);
     $nregistos = mysqli_num_rows($resultado);
 
     if($nregistos == 0){
-        echo "<p> Nome de utilizador inválido: $userlogin!</p>";
-        echo "<a href='login.php'>Voltar para a página de login</a>";
+        $inserir = "insert into tbl_users (username, password) values ('$username', '$userpassword')";
         exit;
     }
     else{
         $registo = mysqli_fetch_assoc($resultado);
-        if($userpassword == $registo['password']){
-            echo "<p>A password está correta!</p>";
-            $_SESSION["user_logged_in"] = "true";
-            echo "<a href='index.php'>Voltar para a página inicial</a>";
-        } else {
-            echo "<p>Password incorreta!</p>";
-            echo "<a href='login.php'>Voltar para a página de login</a>";
-        }
+        echo "<p> Nome de utilizador já existe: $username!</p>";
+        echo "<a href='signin.php'>Voltar para a página de registo</a>";
     }
     ?>
 
