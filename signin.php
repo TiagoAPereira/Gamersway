@@ -1,6 +1,4 @@
 <?php
-// Start the session
-session_start();
 include 'config.php';
 ?>
 
@@ -15,6 +13,7 @@ include 'config.php';
         <form action="registar_user.php" method="post">
             <input name="username" id="username"  placeholder="Escreva o nome de utilizador desejado" aria-label="username" />
             <input name="password" id="password"  placeholder="Escreva a palavra-passe desejada" aria-label="Password" />
+            <input name="confirm_password" id="confirm_password"  placeholder="Confirme a palavra-passe desejada" aria-label="Confirm Password" />
             <input type="submit" value="Sign in" />
         </form>
     </div>

@@ -19,20 +19,25 @@ function nav_bar(){
                         
                     } 
                 } 
+                if(isset($_SESSION["user_logged_in"])){
+                    if($_SESSION["user_logged_in"] == "false"){
+                        echo '<a href="signin.php">Sign in</a>';
+                    } 
+                }
 }
 
 function liga(){
     // Configuração da ligação ao servidor
-    $liga = mysqli_connect('localhost', 'root');
+    $ligacao = mysqli_connect('localhost', 'root');
 
     // Verificação da ligação
-    if (!$liga) {
+    if (!$ligacao) {
         echo "<h2> ERRO!!! Falha na ligação ao Servidor! </h2>";
         exit;
     }
 
     // Ligação à base de dados
-    mysqli_select_db($liga, 'bd_gamersway');
-    return $liga;
+    mysqli_select_db($ligacao, 'bd_gamersway');
+    return $ligacao;
 }
 ?>

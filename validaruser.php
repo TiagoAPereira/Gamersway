@@ -18,20 +18,22 @@ include 'config.php';
     $userpassword=$_POST['password'];
     if(!$userpassword){
         echo "Volte atrás e escreva uma palavra-passe!";
+        echo "<a href='login.php'>Voltar para a página de login</a>";
         exit;
     }
     if(!$userlogin){
         echo "Volte atrás e escreva um nome de utilizador!";
+        echo "<a href='login.php'>Voltar para a página de login</a>";
         exit;
     }
     echo "<p> Nome do user: $userlogin </p>";
     echo "<p> Palavra-passe do user: $userpassword </p>";
 
-    $liga = liga(); // Call the function and store the returned connection
+    $ligacao = liga(); // Call the function and store the returned connection
 
 
     $procura = "select * from tbl_users where BINARY username = '$userlogin'";
-    $resultado = mysqli_query($liga, $procura);
+    $resultado = mysqli_query($ligacao, $procura);
     $nregistos = mysqli_num_rows($resultado);
 
     if($nregistos == 0){

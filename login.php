@@ -12,6 +12,7 @@
         <input type="submit" value="Login" />
         </form>
     </div>
+    <a href="signin.php">Não tem conta? Registe-se aqui</a>
     <a href="index.php">Voltar para a página inicial</a>
 </body>
 </html>
