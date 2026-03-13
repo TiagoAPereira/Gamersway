@@ -40,4 +40,32 @@ function liga(){
     mysqli_select_db($ligacao, 'bd_gamersway');
     return $ligacao;
 }
+
+function user_logged_in(){
+    if(isset($_SESSION["user_logged_in"])){
+        if($_SESSION["user_logged_in"] == "true"){
+            return true;
+        } 
+     else {
+        return false;
+    }
+    }
+     else {
+        return false;
+    }
+}
+function get_username(){
+    if(isset($_SESSION["user_logged_in"])){
+        if($_SESSION["user_logged_in"] == "true"){
+            return $_SESSION["username"];
+        } 
+     else {
+        return "Guest";
+    }
+    }
+     else {
+        return "Guest";
+    }
+}
 ?>
+

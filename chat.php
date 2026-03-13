@@ -25,7 +25,8 @@ include 'config.php';
             <div class="chat-header">
                 <label>
                     Nome
-                    <input id="username" placeholder="Your name" />
+                    <?php
+                    ?>
                 </label>
                 <label style="margin-left:12px">
                     Sala
