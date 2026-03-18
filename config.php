@@ -55,17 +55,14 @@ function user_logged_in(){
     }
 }
 function get_username(){
-    if(isset($_SESSION["user_logged_in"])){
-        if($_SESSION["user_logged_in"] == "true"){
-            return $_SESSION["username"];
-        } 
-     else {
+    if(user_logged_in()){
+
+       return $_SESSION["user_login"];
+    } else {
         return "Guest";
-    }
-    }
-     else {
-        return "Guest";
+
     }
 }
+
 ?>
 

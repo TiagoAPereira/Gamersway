@@ -47,6 +47,8 @@ include 'config.php';
         // O nome de utilizador não existe, podemos criar o novo utilizador
         $inserir = "insert into tbl_users (username, password) values ('$username', '$userpassword')";
         mysqli_query($ligacao, $inserir);
+        $inserir_sala = "insert into tbl_users_salas (id_sala, id_user) values ('1', (select id_users from tbl_users where BINARY username = '$username'))";
+        mysqli_query($ligacao, $inserir_sala);
         echo "<p>Utilizador registado com sucesso!</p>";
         echo "<a href='index.php'>Voltar para a página inicial</a>";
     }
