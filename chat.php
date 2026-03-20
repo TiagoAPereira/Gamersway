@@ -29,21 +29,50 @@ $ligacao = liga(); // Call the function and store the returned connection
                     Nome:
                     <?php
                     echo "<label id='username' aria-label='Username'>$username</label>";
+                    if(isset($_POST['sala'])){
+                        echo "<p style='margin:0 0 0 12px'>Sala selecionada: " . $_POST['sala'] . "</p>";
+                    }
+                    else {
+                       $sala_selecionada = mysqli_fetch_column(mysqli_query($ligacao, "select nome_sala from tbl_salas where id_sala = '1'"));
+                       echo "<p>$sala_selecionada</p>";
+                    }
                     ?>
                 </label>
                 <label style="margin-left:12px">
                     Sala: 
                     <?php
-                    $nome_sala = mysqli_fetch_column(mysqli_query($ligacao, "select nome_sala from tbl_salas where id_sala = '1'"));
-                    echo "<label id='room' aria-label='Room'>$nome_sala</label>";
+                    $procura_sala = mysqli_query($ligacao, "select nome_sala from tbl_salas");
+                    $nome_salas = mysqli_fetch_all($procura_sala, MYSQLI_ASSOC);
+                    echo "<form name='room-form' id='room-form' style='display:inline' method='POST' action='chat.php'>";
+                    echo "<select name='sala' id='room' aria-label='Chat Room'>";
+                   // echo "<option selected value= '$sala_selecionada'>" . $_POST['sala'] . "</option>";
+                    foreach($nome_salas as $sala){
+                        if($sala['nome_sala'] == $_POST['sala']){
+                            echo "<p>****</p>";
+                            echo "<option selected name='sala' id='" . $sala['nome_sala'] . "' value='" . $sala['nome_sala'] . "'>" . $sala['nome_sala'] . "</option>";
+                        }
+                        else {
+                            echo "<option name='sala' id='" . $sala['nome_sala'] . "' value='" . $sala['nome_sala'] . "'>" . $sala['nome_sala'] . "</option>";
+                        }
+                    }
+                    echo "</select>";
+                    echo "<button id='enter-room' type='submit' style='margin-left:8px'>Entrar</button>";
+                    echo "</form>";
+                    if(isset($_POST['sala'])){
+                        $sala_selecionada = $_POST['sala'];
+                    } else {
+                        $sala_selecionada = $nome_salas[0]['nome_sala'];
+                    }
+
                     ?>
+
                 </label>
             </div>
 
             <div class="chat-main">
                 <div class="chat-list" id="messages" aria-live="polite" aria-atomic="false">
                     <?php
-                    $procura = "select * from tbl_mensagens where id_sala = '3' order by id_msg";
+                    $procura = "select * from tbl_mensagens where id_sala = (select id_sala from tbl_salas where nome_sala = '$sala_selecionada') order by id_msg";
                     $resultado = mysqli_query($ligacao, $procura);
                     while($linha = mysqli_fetch_assoc($resultado)){
                         echo "<div class='chat-message'>";
