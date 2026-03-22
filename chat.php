@@ -29,12 +29,23 @@ $ligacao = liga(); // Call the function and store the returned connection
                     Nome:
                     <?php
                     echo "<label id='username' aria-label='Username'>$username</label>";
-                    if(isset($_POST['sala'])){
-                        echo "<p style='margin:0 0 0 12px'>Sala selecionada: " . $_POST['sala'] . "</p>";
+                    
+                    //testar se a variável de sessão existe, se não existir, criar e atribuir o valor da primeira sala 
+                    if(!isset($_SESSION['sala_selecionada'])){
+                        echo "<p>primeira vez</p>";
+                        $_SESSION['sala_selecionada'] = mysqli_fetch_column(mysqli_query($ligacao, "select nome_sala from tbl_salas where id_sala = '1'"));
                     }
                     else {
-                       $sala_selecionada = mysqli_fetch_column(mysqli_query($ligacao, "select nome_sala from tbl_salas where id_sala = '1'"));
-                       echo "<p>$sala_selecionada</p>";
+                        
+                        
+                        if(isset($_POST['sala'])){
+                            $_SESSION['sala_selecionada'] = $_POST['sala'];
+                            echo "<p>Sala selecionada: " . $_SESSION['sala_selecionada'] . "</p>";
+                        }
+                        else{
+                            echo "<p>Sala selecionada: " . $_SESSION['sala_selecionada'] . "</p>";
+                        }
+                    
                     }
                     ?>
                 </label>
@@ -45,10 +56,9 @@ $ligacao = liga(); // Call the function and store the returned connection
                     $nome_salas = mysqli_fetch_all($procura_sala, MYSQLI_ASSOC);
                     echo "<form name='room-form' id='room-form' style='display:inline' method='POST' action='chat.php'>";
                     echo "<select name='sala' id='room' aria-label='Chat Room'>";
-                   // echo "<option selected value= '$sala_selecionada'>" . $_POST['sala'] . "</option>";
+                
                     foreach($nome_salas as $sala){
-                        if($sala['nome_sala'] == $_POST['sala']){
-                            echo "<p>****</p>";
+                        if($sala['nome_sala'] == $_SESSION['sala_selecionada']){
                             echo "<option selected name='sala' id='" . $sala['nome_sala'] . "' value='" . $sala['nome_sala'] . "'>" . $sala['nome_sala'] . "</option>";
                         }
                         else {
@@ -58,11 +68,6 @@ $ligacao = liga(); // Call the function and store the returned connection
                     echo "</select>";
                     echo "<button id='enter-room' type='submit' style='margin-left:8px'>Entrar</button>";
                     echo "</form>";
-                    if(isset($_POST['sala'])){
-                        $sala_selecionada = $_POST['sala'];
-                    } else {
-                        $sala_selecionada = $nome_salas[0]['nome_sala'];
-                    }
 
                     ?>
 
@@ -72,7 +77,7 @@ $ligacao = liga(); // Call the function and store the returned connection
             <div class="chat-main">
                 <div class="chat-list" id="messages" aria-live="polite" aria-atomic="false">
                     <?php
-                    $procura = "select * from tbl_mensagens where id_sala = (select id_sala from tbl_salas where nome_sala = '$sala_selecionada') order by id_msg";
+                    $procura = "select * from tbl_mensagens where id_sala = (select id_sala from tbl_salas where nome_sala = '".$_SESSION['sala_selecionada']."') order by id_msg";
                     $resultado = mysqli_query($ligacao, $procura);
                     while($linha = mysqli_fetch_assoc($resultado)){
                         echo "<div class='chat-message'>";
@@ -86,13 +91,44 @@ $ligacao = liga(); // Call the function and store the returned connection
 
                 <aside class="chat-sidebar">
                     <h4 style="margin:0 0 8px 0">Membros</h4>
-                    <ul id="peers"></ul>
+                    <ul id="peers">
+                    <?php
+                       $id_sala = mysqli_fetch_column(mysqli_query($ligacao, "select id_sala from tbl_salas where nome_sala = '".$_SESSION['sala_selecionada']."'"));
+                    $procura_membros = mysqli_query($ligacao, "select * from tbl_users_salas where id_sala = '$id_sala'"); 
+
+                    while($membro = mysqli_fetch_assoc($procura_membros)){
+                        $procura_username = mysqli_query($ligacao, "select username from tbl_users where id_users = '".$membro['id_user']."'");
+                        $username = mysqli_fetch_column($procura_username);
+                        echo "<li>" . $username . "</li>";
+                    }
+                     ?>
+                    </ul>
                 </aside>
             </div>
 
             <div class="chat-controls">
-                <input id="message" class="chat-input" placeholder="Escreva uma mensagem e pressione Enter" aria-label="Message" />
+                <?php
+                echo "<p>" . $_SESSION['sala_selecionada'] . "</p>";
+                ?>
+                <form name="message-form" id="message-form" style="display:inline" method="POST" action="chat.php">
+                <input name="message" id="message" class="chat-input" placeholder="Escreva uma mensagem e pressione Enviar" aria-label="Message" />
                 <button id="send" class="chat-send">Enviar</button>
+                </form>
+
+                <?php
+                if(isset($_POST['message']) && !empty($_POST['message'])){
+                    
+                    $mensagem = $_POST['message'];
+                    $id_user = mysqli_fetch_column(mysqli_query($ligacao, "select id_users from tbl_users where username = '$username'"));
+                    $id_sala = mysqli_fetch_column(mysqli_query($ligacao, "select id_sala from tbl_salas where nome_sala = '".$_SESSION['sala_selecionada']."'"));
+                    $inserir_mensagem = "insert into tbl_mensagens (id_sala, id_user, mensagem) values ('$id_sala', '$id_user', '$mensagem')";
+                    mysqli_query($ligacao, $inserir_mensagem);
+                    echo "<meta http-equiv='refresh' content='0'>"; // Refresh the page to show the new message
+                    
+                    
+                }
+
+                    ?>
             </div>
         </section>
     </main>
