@@ -2,7 +2,8 @@
 include 'config.php';
 $user_logado = user_logged_in();
 if($user_logado){
-    $_SESSION["user_logged_in"] = "false";
+    session_unset();
+    session_destroy();
         echo '<html>
         <head>
         <meta http-equiv="refresh" content="0;url=index.php"/>

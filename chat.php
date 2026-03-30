@@ -81,7 +81,7 @@ $ligacao = liga(); // Call the function and store the returned connection
                     $resultado = mysqli_query($ligacao, $procura);
                     while($linha = mysqli_fetch_assoc($resultado)){
                         echo "<div class='chat-message'>";
-                        $procura_autor = mysqli_query($ligacao, "select username from tbl_users where id_users = '".$linha["id_user"]."'");
+                        $procura_autor = mysqli_query($ligacao, "select username from tbl_users where id_user = '".$linha["id_user"]."'");
                         $nome_autor = mysqli_fetch_column($procura_autor);
                         echo $nome_autor . ": " . $linha['mensagem'];
                         echo "</div>";
@@ -97,9 +97,9 @@ $ligacao = liga(); // Call the function and store the returned connection
                     $procura_membros = mysqli_query($ligacao, "select * from tbl_users_salas where id_sala = '$id_sala'"); 
 
                     while($membro = mysqli_fetch_assoc($procura_membros)){
-                        $procura_username = mysqli_query($ligacao, "select username from tbl_users where id_users = '".$membro['id_user']."'");
-                        $username = mysqli_fetch_column($procura_username);
-                        echo "<li>" . $username . "</li>";
+                        $procura_nome = mysqli_query($ligacao, "select username from tbl_users where id_user = '".$membro['id_user']."'");
+                        $nome = mysqli_fetch_column($procura_nome);
+                        echo "<li>" . $nome . "</li>";
                     }
                      ?>
                     </ul>
@@ -119,7 +119,7 @@ $ligacao = liga(); // Call the function and store the returned connection
                 if(isset($_POST['message']) && !empty($_POST['message'])){
                     
                     $mensagem = $_POST['message'];
-                    $id_user = mysqli_fetch_column(mysqli_query($ligacao, "select id_users from tbl_users where username = '$username'"));
+                    $id_user = mysqli_fetch_column(mysqli_query($ligacao, "select id_user from tbl_users where username = '$username'"));
                     $id_sala = mysqli_fetch_column(mysqli_query($ligacao, "select id_sala from tbl_salas where nome_sala = '".$_SESSION['sala_selecionada']."'"));
                     $inserir_mensagem = "insert into tbl_mensagens (id_sala, id_user, mensagem) values ('$id_sala', '$id_user', '$mensagem')";
                     mysqli_query($ligacao, $inserir_mensagem);
