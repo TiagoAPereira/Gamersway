@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include_once 'config.php';
 ?>
 
 <!DOCTYPE html>
@@ -13,15 +13,8 @@ include 'config.php';
 <body>
     <?php
 // Set session variables
-if(isset($_SESSION["user_logged_in"])){
-    if($_SESSION["user_logged_in"] == "true"){
-        echo "user logged in";
-    } else {
-        echo "user not logged in";
-    }
-} else {
+if(!isset($_SESSION["user_logged_in"])){  
     $_SESSION["user_logged_in"] = "false";
-    echo "user not logged in";
 }
 ?>
     <header class="site-header">
@@ -68,7 +61,23 @@ if(isset($_SESSION["user_logged_in"])){
                 <button id="clear-filters" class="clear">Clear</button>
             </div>
         </section>
+        <p>
+            <?php $jogo = get_jogo(1); 
+            echo $jogo['nome_jogo']; 
+            echo "<br>";
+            echo $jogo['link_site_jogo'];
+            echo "<br>";
+            ?> 
+            <img width="100" height="100" src="<?php echo PASTA_IMGS . "/" . $jogo['imagem_jogo']; ?>" alt="<?php echo $jogo['nome_jogo']; ?>" />
+            
 
+            <?php 
+            $jogos = get_top_jogos(3);
+            foreach($jogos as $jogo){
+                echo $jogo['nome_jogo'] . " - " . $jogo['rating'] . "<br>";
+            }
+            ?>
+        </p>
         <section id="games" class="games-grid" aria-live="polite">
             <!-- Game cards rendered by js/main.js -->
         </section>
@@ -78,6 +87,6 @@ if(isset($_SESSION["user_logged_in"])){
         <div class="container">&copy; Gamersway — curated picks</div>
     </footer>
 
-    <script src="js/main.js"></script>
+<!--   <script src="js/main.js"></script> -->
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include_once 'config.php';
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +47,8 @@ include 'config.php';
             echo "<p>A password está correta!</p>";
             $_SESSION["user_logged_in"] = "true";
             $_SESSION["user_login"] = $user_login;
+            $update_user_online = "update tbl_users set online = 1 where id_user = " . $registo['id_user'];
+            mysqli_query($ligacao, $update_user_online);
             echo "<a href='index.php'>Voltar para a página inicial</a>";
         } else {
             echo "<p>Password incorreta!</p>";

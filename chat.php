@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include_once 'config.php';
 $username = get_username();
 $ligacao = liga(); // Call the function and store the returned connection
 ?>

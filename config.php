@@ -1,5 +1,6 @@
 <?php 
 session_start();
+
 function nav_bar(){
     echo '<a href="index.php">Home</a>';
      if(isset($_SESSION["user_logged_in"])){
@@ -62,6 +63,27 @@ function get_username(){
         return "Guest";
 
     }
+}
+
+define("PASTA_IMGS", "imagens/jogos");
+   
+
+function get_jogo($id){
+    $ligacao = liga();
+    $query = "SELECT * FROM tbl_jogos WHERE id_jogo = $id";
+    $result = mysqli_query($ligacao, $query);
+    return mysqli_fetch_assoc($result);
+}
+
+function get_top_jogos($num){
+    $ligacao = liga();
+    $query = "SELECT * FROM tbl_jogos ORDER BY rating DESC LIMIT $num";
+    $result = mysqli_query($ligacao, $query);
+    $jogos = [];
+    while($row = mysqli_fetch_assoc($result)){
+        $jogos[] = $row;
+    }
+    return $jogos;
 }
 
 ?>
