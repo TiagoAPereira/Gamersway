@@ -7,23 +7,33 @@ include_once 'config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Validação de Login</title>
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
+    <header class="site-header">
+        <div class="container">
+            <h1>Gamersway</h1>
+            <nav class="site-nav">
+                <?php nav_bar(); ?>
+            <p class="tag">Validação de Login</p>
+        </div>
+    </header>
 
-    
-
+    <main class="container">
+        <section>
+            <div class="card" style="padding:16px">
     <?php
     $user_login=$_POST['login'];
     $user_password=$_POST['password'];
     if(!$user_password){
-        echo "Volte atrás e escreva uma palavra-passe!";
-        echo "<a href='login.php'>Voltar para a página de login</a>";
+        echo "<p class='meta'>Volte atrás e escreva uma palavra-passe!</p>";
+        echo "<p><a href='login.php'>Voltar para a página de login</a></p>";
         exit;
     }
     if(!$user_login){
-        echo "Volte atrás e escreva um nome de utilizador!";
-        echo "<a href='login.php'>Voltar para a página de login</a>";
+        echo "<p class='meta'>Volte atrás e escreva um nome de utilizador!</p>";
+        echo "<p><a href='login.php'>Voltar para a página de login</a></p>";
         exit;
     }
     echo "<p> Nome do user: $user_login </p>";
@@ -37,8 +47,8 @@ include_once 'config.php';
     $nregistos = mysqli_num_rows($resultado);
 
     if($nregistos == 0){
-        echo "<p> Nome de utilizador inválido: $user_login!</p>";
-        echo "<a href='login.php'>Voltar para a página de login</a>";
+        echo "<p class='meta'> Nome de utilizador inválido: $user_login!</p>";
+        echo "<p><a href='login.php'>Voltar para a página de login</a></p>";
         exit;
     }
     else{
@@ -49,13 +59,19 @@ include_once 'config.php';
             $_SESSION["user_login"] = $user_login;
             $update_user_online = "update tbl_users set online = 1 where id_user = " . $registo['id_user'];
             mysqli_query($ligacao, $update_user_online);
-            echo "<a href='index.php'>Voltar para a página inicial</a>";
+            echo "<p><a href='index.php'>Voltar para a página inicial</a></p>";
         } else {
             echo "<p>Password incorreta!</p>";
-            echo "<a href='login.php'>Voltar para a página de login</a>";
+            echo "<p><a href='login.php'>Voltar para a página de login</a></p>";
         }
     }
     ?>
+            </div>
+        </section>
+    </main>
 
+    <footer class="site-footer">
+        <div class="container">&copy; Gamersway</div>
+    </footer>
 </body>
 </html>

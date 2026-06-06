@@ -7,29 +7,39 @@ include_once 'config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>registar user</title>
+    <title>Registar utilizador</title>
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
+    <header class="site-header">
+        <div class="container">
+            <h1>Gamersway</h1>
+            <nav class="site-nav">
+                <?php nav_bar(); ?>
+            <p class="tag">Registo</p>
+        </div>
+    </header>
 
-    
-
+    <main class="container">
+        <section>
+            <div class="card" style="padding:16px">
     <?php
     $username=$_POST['username'];
     $userpassword=$_POST['password'];
     $confirm_password=$_POST['confirm_password'];
     if(!$username){
-        echo "Volte atrás e escreva um nome de utilizador!";
-        echo "<a href='signin.php'>Voltar para a página de registo</a>";
+        echo "<p class='meta'>Volte atrás e escreva um nome de utilizador!</p>";
+        echo "<p><a href='signin.php'>Voltar para a página de registo</a></p>";
         exit;
     }
     if(!$userpassword){
-        echo "Volte atrás e escreva uma palavra-passe!";
-        echo "<a href='signin.php'>Voltar para a página de registo</a>";
+        echo "<p class='meta'>Volte atrás e escreva uma palavra-passe!</p>";
+        echo "<p><a href='signin.php'>Voltar para a página de registo</a></p>";
         exit;
     }
     if($userpassword != $confirm_password){
-        echo "As palavras-passe não coincidem!";
-        echo "<a href='signin.php'>Voltar para a página de registo</a>";
+        echo "<p class='meta'>As palavras-passe não coincidem!</p>";
+        echo "<p><a href='signin.php'>Voltar para a página de registo</a></p>";
         exit;
     }
     
@@ -50,15 +60,21 @@ include_once 'config.php';
         $inserir_sala = "insert into tbl_users_salas (id_sala, id_user) values ('1', (select id_user from tbl_users where BINARY username = '$username'))";
         mysqli_query($ligacao, $inserir_sala);
         echo "<p>Utilizador registado com sucesso!</p>";
-        echo "<a href='index.php'>Voltar para a página inicial</a>";
+        echo "<p><a href='index.php'>Voltar para a página inicial</a></p>";
     }
     else{
         // O nome de utilizador já existe, mostrar mensagem de erro
         $registo = mysqli_fetch_assoc($resultado);
         echo "<p> Nome de utilizador já existe: $username!</p>";
-        echo "<a href='signin.php'>Voltar para a página de registo</a>";
+        echo "<p><a href='signin.php'>Voltar para a página de registo</a></p>";
     }
     ?>
+            </div>
+        </section>
+    </main>
 
+    <footer class="site-footer">
+        <div class="container">&copy; Gamersway</div>
+    </footer>
 </body>
 </html>
