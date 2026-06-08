@@ -28,15 +28,18 @@ if(!isset($_SESSION["user_logged_in"])){
 
     <main class="container">
         <section class="controls">
+            <!-- 
             <div class="left-controls">
                 <div class="btn-group">
                     <button id="btn-week" class="active">Best of Week</button>
                     <button id="btn-year">Best of Year</button>
-                </div>
+                </div> 
                 <input id="search" placeholder="Search games" aria-label="Search games" />
-            </div>
+            </div> 
+            -->
 
             <div class="filters">
+                <!--
                 <label>
                     Platform
                     <select id="platform">
@@ -57,36 +60,41 @@ if(!isset($_SESSION["user_logged_in"])){
                         <option value="title-asc">Title (A → Z)</option>
                     </select>
                 </label>
-
-                <button id="clear-filters" class="clear">Clear</button>
+            -->
+                <form id="num-games-form" style="display:inline" method="POST" action="index.php">
+                    
+                    <select name="num-games" id="num-games" aria-label="Nº de jogos" style="margin-left:12px ; color:#333 ; background-color: #fff;">
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                    </select>
+                    <button type="submit">Show</button>
+                </form>
             </div>
         </section>
-        <p>
-            <?php $jogo = get_jogo(1); 
-            echo $jogo['nome_jogo']; 
-            echo "<br>";
-            echo $jogo['link_site_jogo'];
-            echo "<br>";
-            ?> 
-            <img width="100" height="100" src="<?php echo PASTA_IMGS . "/" . $jogo['imagem_jogo']; ?>" alt="<?php echo $jogo['nome_jogo']; ?>" />
-            
 
+            <div id="games-list"  class="games-list">
             <?php 
-            $jogos = get_top_jogos(3);
+            echo "<table>";
+            echo "<tr><th>Imagem</th><th>Nome</th><th>Avaliação</th><th>Link</th></tr>";
+            echo "<tr><td colspan=" . $_POST['num-games'] . "><hr></td></tr>";
+            $jogos = get_top_jogos(isset($_POST['num-games']) ? intval($_POST['num-games']) : 3);
             foreach($jogos as $jogo){
-                echo $jogo['nome_jogo'] . " - " . $jogo['rating'] . "<br>";
+                echo "<tr>";
+                echo "<td><img width=\"100\" height=\"100\" src=\"" . PASTA_IMGS . "/" . $jogo['imagem_jogo'] . "\" alt=\"" . $jogo['nome_jogo'] . "\" /></td>";
+                echo "<td><h3>" . $jogo['nome_jogo'] . "</h3></td>";
+                echo "<td><p>Avaliação: " . $jogo['rating'] . "</p></td>";
+                echo "<td><a href=\"" . $jogo['link_site_jogo'] . "\" target=\"_blank\">Ver Detalhes</a></td>";
+                echo "</tr>";
             }
+            echo "</table>";
             ?>
-        </p>
-        <section id="games" class="games-grid" aria-live="polite">
-            <!-- Game cards rendered by js/main.js -->
-        </section>
+            </div>
+
     </main>
 
     <footer class="site-footer">
         <div class="container">&copy; Gamersway — curated picks</div>
     </footer>
-
-<!--   <script src="js/main.js"></script> -->
 </body>
 </html>

@@ -3,28 +3,30 @@ session_start();
 
 function nav_bar(){
     echo '<a href="index.php">Home</a>';
-     if(isset($_SESSION["user_logged_in"])){
-         if($_SESSION["user_logged_in"] == "true"){
-                        echo '<a href="chat.php">Chat</a>';
-                    } 
-                }
-                echo '<a href="about.php">About</a>'; 
-                if(isset($_SESSION["user_logged_in"])){
-                    if($_SESSION["user_logged_in"] == "false"){
-                        echo '<a href="login.php">Login</a>';
-                    } 
-                } 
-                if(isset($_SESSION["user_logged_in"])){
-                    if($_SESSION["user_logged_in"] == "true"){
-                        echo '<a href="logout.php">Logout</a>';
-                        
-                    } 
-                } 
-                if(isset($_SESSION["user_logged_in"])){
-                    if($_SESSION["user_logged_in"] == "false"){
-                        echo '<a href="signin.php">Sign in</a>';
-                    } 
-                }
+    if(isset($_SESSION["user_logged_in"])){
+        if($_SESSION["user_logged_in"] == "true"){
+            echo '<a href="chat.php">Chat</a>';
+        } 
+    }
+    echo '<a href="about.php">About</a>'; 
+    if(isset($_SESSION["user_logged_in"])){
+        if($_SESSION["user_logged_in"] == "false"){
+            echo '<a href="login.php">Login</a>';
+        } 
+    } 
+    if(isset($_SESSION["user_logged_in"])){
+        if($_SESSION["user_logged_in"] == "true"){
+            echo '<a href="logout.php">Logout</a>';    
+        } 
+    } 
+    if(isset($_SESSION["user_logged_in"])){
+        if($_SESSION["user_logged_in"] == "false"){
+            echo '<a href="signin.php">Sign in</a>';
+        } 
+    }
+    if(get_username() && in_array(get_username(), array_column(get_admins(), 'username'))){
+        echo '<a href="admin_page.php">Admin Page</a>';
+    }
 }
 
 function liga(){
@@ -86,5 +88,15 @@ function get_top_jogos($num){
     return $jogos;
 }
 
+function get_admins(){
+    $ligacao = liga();
+    $query = "SELECT * FROM tbl_users WHERE cargo = '9'";
+    $result = mysqli_query($ligacao, $query);
+    $admins = [];
+    while($row = mysqli_fetch_assoc($result)){
+        $admins[] = $row;
+    }
+    return $admins;
+}
 ?>
 
