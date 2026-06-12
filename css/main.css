@@ -27,6 +27,13 @@ input#search{flex:1;max-width:320px;padding:8px 12px;border-radius:8px;border:1p
 .desc{flex:1;color:#cfe6dd;font-size:13px}
 .rating{margin-top:10px;font-weight:700;color:var(--accent)}
 .site-footer{padding:18px 0;text-align:center;color:var(--muted);font-size:13px}
+.admin-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px}
+.admin-table th,
+.admin-table td{border:1px solid rgba(255,255,255,0.12);padding:12px;text-align:left}
+.admin-table th{background:rgba(255,255,255,0.04)}
+.admin-table tr:nth-child(even){background:rgba(255,255,255,0.02)}
+.page-note{margin:0 0 16px;color:var(--muted)}
+
 @media (max-width:420px){.controls{flex-direction:column;align-items:stretch}.btn-group{justify-content:flex-start}}
 @media (max-width:720px){.filters{flex-wrap:wrap;gap:8px}}
 

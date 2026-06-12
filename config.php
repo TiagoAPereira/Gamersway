@@ -24,7 +24,7 @@ function nav_bar(){
             echo '<a href="signin.php">Sign in</a>';
         } 
     }
-    if(get_username() && in_array(get_username(), array_column(get_admins(), 'username'))){
+    if(is_admin()){
         echo '<a href="admin_page.php">Admin Page</a>';
     }
 }
@@ -97,6 +97,53 @@ function get_admins(){
         $admins[] = $row;
     }
     return $admins;
+}
+
+function is_admin(){
+    if(user_logged_in()){
+        $username = get_username();
+        $admins = get_admins();
+        foreach($admins as $admin){
+            if($admin['username'] == $username){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function get_users_online(){
+    $ligacao = liga();
+    $query = "SELECT username FROM tbl_users WHERE online = 1";
+    $result = mysqli_query($ligacao, $query);
+    $users_online = [];
+    while($row = mysqli_fetch_assoc($result)){
+        $users_online[] = $row['username'];
+    }
+    return $users_online;
+}
+function is_online(){
+    if(user_logged_in()){
+        $username = get_username();
+        $users_online = get_users_online();
+        foreach($users_online as $user){
+            if($user == $username){
+                return true;
+            }
+        }
+    }
+    return false;
+}  
+
+function get_users_info(){
+    $ligacao = liga();
+    $query = "SELECT username, cargo, online FROM tbl_users";
+    $result = mysqli_query($ligacao, $query);
+    $users_info = [];
+    while($row = mysqli_fetch_assoc($result)){
+        $users_info[] = $row;
+    }
+    return $users_info;
 }
 ?>
 
