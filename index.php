@@ -75,10 +75,15 @@ if(!isset($_SESSION["user_logged_in"])){
 
             <div id="games-list"  class="games-list">
             <?php 
+            if(isset($_POST['num-games'])){
+                $num_games = intval($_POST['num-games']);
+            } else {
+                $num_games = 3; // Default value
+            }
             echo "<table>";
             echo "<tr><th>Imagem</th><th>Nome</th><th>Avaliação</th><th>Link</th></tr>";
-            echo "<tr><td colspan=" . $_POST['num-games'] . "><hr></td></tr>";
-            $jogos = get_top_jogos(isset($_POST['num-games']) ? intval($_POST['num-games']) : 3);
+            echo "<tr><td colspan=" . $num_games . "><hr></td></tr>";
+            $jogos = get_top_jogos($num_games);
             foreach($jogos as $jogo){
                 echo "<tr>";
                 echo "<td><img width=\"100\" height=\"100\" src=\"" . PASTA_IMGS . "/" . $jogo['imagem_jogo'] . "\" alt=\"" . $jogo['nome_jogo'] . "\" /></td>";
