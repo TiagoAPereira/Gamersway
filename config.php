@@ -70,13 +70,35 @@ function get_username(){
 define("PASTA_IMGS", "imagens/jogos");
    
 
-function get_jogo($id){
+function get_jogos(){
+    $ligacao = liga();
+    $query = "SELECT * FROM tbl_jogos";
+    $result = mysqli_query($ligacao, $query);
+    $jogos = [];
+    while($row = mysqli_fetch_assoc($result)){
+        $jogos[] = $row;
+    }
+    return $jogos;
+}
+
+function get_jogo_by_id($id){
     $ligacao = liga();
     $query = "SELECT * FROM tbl_jogos WHERE id_jogo = $id";
     $result = mysqli_query($ligacao, $query);
     return mysqli_fetch_assoc($result);
 }
 
+function add_jogo($nome_jogo, $link_site_jogo, $imagem_jogo, $data_lancamento, $rating){
+    $ligacao = liga();
+    $query = "INSERT INTO tbl_jogos (nome_jogo, link_site_jogo, imagem_jogo, data_lancamento, rating) VALUES ('$nome_jogo', '$link_site_jogo', '$imagem_jogo', '$data_lancamento', '$rating')";
+    mysqli_query($ligacao, $query);
+}
+
+function update_jogo($id_jogo, $nome_jogo, $link_site_jogo, $imagem_jogo, $data_lancamento, $rating){
+    $ligacao = liga();
+    $query = "UPDATE tbl_jogos SET nome_jogo='$nome_jogo', link_site_jogo='$link_site_jogo', imagem_jogo='$imagem_jogo', data_lancamento='$data_lancamento', rating='$rating' WHERE id_jogo=$id_jogo";
+    mysqli_query($ligacao, $query);
+}
 function get_top_jogos($num){
     $ligacao = liga();
     $query = "SELECT * FROM tbl_jogos ORDER BY rating DESC LIMIT $num";

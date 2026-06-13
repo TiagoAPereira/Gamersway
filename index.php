@@ -81,7 +81,7 @@ if(!isset($_SESSION["user_logged_in"])){
                 $num_games = 3; // Default value
             }
             echo "<table>";
-            echo "<tr><th>Imagem</th><th>Nome</th><th>Avaliação</th><th>Link</th></tr>";
+            echo "<tr><th>Imagem</th><th>Nome</th><th>Avaliação</th><th>Link</th><th>Data de Lançamento</th></tr>";
             echo "<tr><td colspan=" . $num_games . "><hr></td></tr>";
             $jogos = get_top_jogos($num_games);
             foreach($jogos as $jogo){
@@ -90,6 +90,7 @@ if(!isset($_SESSION["user_logged_in"])){
                 echo "<td><h3>" . $jogo['nome_jogo'] . "</h3></td>";
                 echo "<td><p>Avaliação: " . $jogo['rating'] . "</p></td>";
                 echo "<td><a href=\"" . $jogo['link_site_jogo'] . "\" target=\"_blank\">Ver Detalhes</a></td>";
+                echo "<td><p>Data de Lançamento: " . $jogo['data_lancamento'] . "</p></td>";
                 echo "</tr>";
             }
             echo "</table>";

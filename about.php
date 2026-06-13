@@ -15,6 +15,7 @@ include_once 'config.php';
             <h1>Gamersway</h1>
             <nav class="site-nav">
                 <?php nav_bar(); ?>
+            </nav>
             <p class="tag">Melhores jogos da semana e do ano — seleções curadas</p>
         </div>
     </header>
