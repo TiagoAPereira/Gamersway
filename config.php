@@ -57,6 +57,13 @@ function user_logged_in(){
         return false;
     }
 }
+
+function get_user_by_id($id){
+    $ligacao = liga();
+    $query = "SELECT * FROM tbl_users WHERE id_user = $id";
+    $result = mysqli_query($ligacao, $query);
+    return mysqli_fetch_assoc($result);
+}
 function get_username(){
     if(user_logged_in()){
 
@@ -159,13 +166,19 @@ function is_online(){
 
 function get_users_info(){
     $ligacao = liga();
-    $query = "SELECT username, cargo, online FROM tbl_users";
+    $query = "SELECT * FROM tbl_users";
     $result = mysqli_query($ligacao, $query);
     $users_info = [];
     while($row = mysqli_fetch_assoc($result)){
         $users_info[] = $row;
     }
     return $users_info;
+}
+
+function update_user($id, $cargo){
+    $ligacao = liga();
+    $query = "UPDATE tbl_users SET cargo='$cargo' WHERE id_user=$id";
+    mysqli_query($ligacao, $query);
 }
 ?>
 

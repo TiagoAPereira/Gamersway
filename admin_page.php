@@ -34,6 +34,7 @@ if (user_logged_in() && is_admin()) {
         echo "<td>" . $user['username'] . "</td>";
         echo "<td>" . $user['cargo'] . "</td>";
         echo "<td>" . ($user['online'] ? "Sim" : "Não") . "</td>";
+        echo "<td><a href='edit_user.php?id=" . $user['id_user'] . "'>Editar</a></td>";
         echo "</tr>";
     }
     echo "</tbody>";

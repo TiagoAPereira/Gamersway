@@ -21,10 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagem_jogo = $jogo_atual['imagem_jogo'];
     }
 
-    // Atualizar o jogo na BD
-    #$ligacao = liga();
-    #$query = "UPDATE tbl_jogos SET nome_jogo='$nome_jogo', link_site_jogo='$link_site_jogo', imagem_jogo='$imagem_jogo', data_lancamento='$data_lancamento', rating='$rating' WHERE id_jogo=$id_jogo";
-    #mysqli_query($ligacao, $query);
     update_jogo($id_jogo, $nome_jogo, $link_site_jogo, $imagem_jogo, $data_lancamento, $rating);
 
     header("Location: admin_page.php");
