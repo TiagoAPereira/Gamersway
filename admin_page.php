@@ -54,11 +54,13 @@ if (user_logged_in() && is_admin()) {
         echo "<td>" . $jogo['data_lancamento'] . "</td>";
         echo "<td>" . $jogo['rating'] . "</td>";
         echo "<td><a href='edit_jogo.php?id=" . $jogo['id_jogo'] . "'>Editar</a></td>";
+        echo "<td><a href='delete_jogo.php?id=" . $jogo['id_jogo'] . "' onclick=\"return confirm('Tem certeza que deseja excluir este jogo?');\">Excluir</a></td>";
         echo "</tr>";
     }
     echo "</tbody>";
     echo "</table>";
     echo "<p class='page-note'><small>* Avaliação de 0 a 100(dados fictícios)</small></p>";
+    echo "<p><a href='add_jogo_page.php'>Adicionar novo jogo</a></p>";
     echo "<p><a href='index.php'>Voltar para a página inicial</a></p>";
     echo "</section>";
 } else {

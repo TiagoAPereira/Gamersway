@@ -117,6 +117,11 @@ function get_top_jogos($num){
     return $jogos;
 }
 
+function delete_jogo($id_jogo){
+    $ligacao = liga();
+    $query = "DELETE FROM tbl_jogos WHERE id_jogo=$id_jogo";
+    mysqli_query($ligacao, $query);
+}
 function get_admins(){
     $ligacao = liga();
     $query = "SELECT * FROM tbl_users WHERE cargo = '9'";
