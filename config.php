@@ -185,5 +185,40 @@ function update_user($id, $cargo){
     $query = "UPDATE tbl_users SET cargo='$cargo' WHERE id_user=$id";
     mysqli_query($ligacao, $query);
 }
+
+function get_salas(){
+    $ligacao = liga();
+    $query = "SELECT * FROM tbl_salas";
+    $result = mysqli_query($ligacao, $query);
+    $salas = [];
+    while($row = mysqli_fetch_assoc($result)){
+        $salas[] = $row;
+    }
+    return $salas;
+}
+
+function get_sala_by_id($id){
+    $ligacao = liga();
+    $query = "SELECT * FROM tbl_salas WHERE id_sala = $id";
+    $result = mysqli_query($ligacao, $query);
+    return mysqli_fetch_assoc($result);
+}
+function update_sala($id_sala, $nome_sala, $descricao){
+    $ligacao = liga();
+    $query = "UPDATE tbl_salas SET nome_sala='$nome_sala', descricao='$descricao' WHERE id_sala=$id_sala";
+    mysqli_query($ligacao, $query);
+}
+
+function delete_sala($id_sala){
+    $ligacao = liga();
+    $query = "DELETE FROM tbl_salas WHERE id_sala=$id_sala";
+    mysqli_query($ligacao, $query);
+}
+
+function add_sala($nome_sala, $descricao){
+    $ligacao = liga();
+    $query = "INSERT INTO tbl_salas (nome_sala, descricao) VALUES ('$nome_sala', '$descricao')";
+    mysqli_query($ligacao, $query);
+}
 ?>
 

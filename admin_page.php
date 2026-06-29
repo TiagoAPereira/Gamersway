@@ -41,7 +41,7 @@ if (user_logged_in() && is_admin()) {
     echo "</table>";
     echo "<p class='page-note'><small>* 0-User, 9-Admin</small></p>";
 
-    echo "<p class='page-note'><strong>Gestão de jogos.</strong></p>";
+    echo "<p id='games' class='page-note'><strong>Gestão de jogos.</strong></p>";
     echo "<table border='1' class='admin-table'>";
     echo "<thead><tr><th>Nome do Jogo</th><th>Link do Site</th><th>Imagem</th><th>Data de Lançamento</th><th>Rating*</th></tr></thead>";
     echo "<tbody>";
@@ -59,14 +59,31 @@ if (user_logged_in() && is_admin()) {
     }
     echo "</tbody>";
     echo "</table>";
-    echo "<p class='page-note'><small>* Avaliação de 0 a 100(dados fictícios)</small></p>";
+    echo "<p class='page-note'><small>* Avaliação de 0 a 100 (dados fictícios)</small></p>";
     echo "<p><a href='add_jogo_page.php'>Adicionar novo jogo</a></p>";
-    echo "<p><a href='index.php'>Voltar para a página inicial</a></p>";
+
+    echo "<p id='chat-salas' class='page-note'><strong>Gestão de salas de chat.</strong></p>";
+    echo "<table border='1' class='admin-table'>";
+    echo "<thead><tr><th>Nome da Sala</th><th>Descrição</th></tr></thead>";
+    echo "<tbody>";
+    $salas = get_salas();
+    foreach($salas as $sala){
+        echo "<tr>";
+        echo "<td>" . $sala['nome_sala'] . "</td>";
+        echo "<td>" . $sala['descricao'] . "</td>";
+        echo "<td><a href='edit_sala.php?id=" . $sala['id_sala'] . "'>Editar</a></td>";
+        echo "<td><a href='delete_sala.php?id=" . $sala['id_sala'] . "' onclick=\"return confirm('Tem certeza que deseja excluir esta sala?');\">Excluir</a></td>";
+        echo "</tr>";
+    }
+    echo "</tbody>";
+    echo "</table>";
+    echo "<p><a href='add_sala_page.php'>Adicionar nova sala</a></p>";
+    echo "<a href='index.php'>Voltar para a página inicial</a>";
     echo "</section>";
 } else {
     echo "<section class='admin-panel'>";
-    echo "<h1>Acesso Negado</h1>";
-    echo "<p>Você não tem permissão para acessar esta página.</p>";
+    echo "<h2>Acesso Negado</h2>";
+    echo "<p>Você não tem permissão para aceder a esta página.</p>";
     echo "<p><a href='index.php'>Voltar para a página inicial</a></p>";
     echo "</section>";
 }

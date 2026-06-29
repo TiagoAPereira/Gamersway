@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     update_jogo($id_jogo, $nome_jogo, $link_site_jogo, $imagem_jogo, $data_lancamento, $rating);
 
-    header("Location: admin_page.php");
+    header("Location: admin_page.php#games");
     exit();
 }
 ?>
